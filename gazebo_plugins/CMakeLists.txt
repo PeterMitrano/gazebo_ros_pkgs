@@ -116,6 +116,7 @@ catkin_package(
   gazebo_ros_planar_move
   gazebo_ros_range
   gazebo_ros_vacuum_gripper
+  gazebo_ros_tf_publisher
 
   CATKIN_DEPENDS
   message_runtime
@@ -295,6 +296,10 @@ target_link_libraries(gazebo_ros_range ${catkin_LIBRARIES} ${Boost_LIBRARIES} Ra
 add_library(gazebo_ros_vacuum_gripper src/gazebo_ros_vacuum_gripper.cpp)
 target_link_libraries(gazebo_ros_vacuum_gripper ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
+add_library(gazebo_ros_tf_publisher src/gazebo_ros_tf_publisher.cpp)
+add_dependencies(gazebo_ros_tf_publisher ${catkin_EXPORTED_TARGETS})
+target_link_libraries(gazebo_ros_tf_publisher ${Boost_LIBRARIES} ContactPlugin ${catkin_LIBRARIES})
+
 ##
 ## Add your new plugin here
 ##
@@ -342,6 +347,7 @@ install(TARGETS
   pub_joint_trajectory_test
   gazebo_ros_gpu_laser
   gazebo_ros_range
+  gazebo_ros_tf_publisher
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   )
