@@ -1366,6 +1366,7 @@ bool GazeboRosApiPlugin::setPhysicsProperties(gazebo_msgs::SetPhysicsProperties:
         req.ode_config.contact_max_correcting_vel);
     pe->SetParam("max_contacts", int(req.ode_config.max_contacts));
 
+    world_->SetPhysicsEnabled(req.enabled);
     world_->SetPaused(is_paused);
 
     res.success = true;
@@ -1392,6 +1393,7 @@ bool GazeboRosApiPlugin::getPhysicsProperties(gazebo_msgs::GetPhysicsProperties:
 #endif
   res.time_step = pe->GetMaxStepSize();
   res.pause = world_->IsPaused();
+  res.enabled = world_->PhysicsEnabled();
   res.max_update_rate = pe->GetRealTimeUpdateRate();
   ignition::math::Vector3d gravity = world_->Gravity();
   res.gravity.x = gravity.X();
